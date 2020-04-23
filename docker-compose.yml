@@ -1,0 +1,66 @@
+version: '3.7'
+services:
+  httpd:
+    build:
+      context: ./httpd/build
+      args:
+        HTTPD_UID: ${HTTPD_UID:-www-data}
+        HTTPD_GID: ${HTTPD_GID:-www-data}
+    image: httpd:latest
+    ports:
+      - ${HTTPD_HOST_PORT:-80}:80
+      - ${HTTPD_HOST_SSL_PORT:-443}:443
+    volumes:
+      - ./DocumentRoot:/usr/local/apache2/htdocs:z
+      - certs:/certs
+    depends_on:
+      - php
+      - sslcert-generator
+
+  php:
+    build:
+      context: ./php/build/${PHP_VERSION:-74-fpm}
+      args:
+        PHP_FPM_UID: ${PHP_FPM_UID:-1000}
+        PHP_FPM_GID: ${PHP_FPM_GID:-1000}
+    volumes:
+      - ./DocumentRoot:/var/www/html:z
+      - ./php/config/php.ini:/usr/local/etc/php/conf.d/php.ini:z
+
+  mariadb:
+    image: mariadb:10.5
+    volumes:
+      - mariadb:/var/lib/mysql
+    environment:
+      TZ: ${TZ:-"Europe/Rome"}
+      MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD:-no}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpwd}
+      MYSQL_USER: ${MYSQL_USER:-testuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-testpassword}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-testdb}
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - 'mariadb:db'
+    ports:
+      - ${PHPMYADMIN_HOST_PORT:-8080}:80
+    depends_on:
+      - mariadb
+
+  sslcert-generator:
+    build:
+      context: https://github.com/egdoc/docker-sslcert-generator.git
+    environment:
+      DAYS: ${DAYS:-365}
+      COUNTRY: ${COUNTRY:-US}
+      STATE: ${STATE:-"New York"}
+      LOCALITY: ${LOCALITY:-Brooklin}
+      ORGANIZATION_NAME: ${ORGANIZATION_NAME:-"Internet Widgits Pty Ltd"}
+      COMMON_NAME: ${COMMON_NAME:-test.lan}
+    volumes:
+      - certs:/certs
+
+volumes:
+  mariadb:
+  certs:
