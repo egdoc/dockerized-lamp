@@ -26,9 +26,9 @@ PHPMYADMIN_HOST_PORT=8080
 
 # Sslcert-generator
 # ----------------------
-DAYS=365
-COUNTRY=US
-STATE=New York
-LOCALITY=Brooklin
-ORGANIZATION_NAME=Internet Widgits Pty Ltd
-COMMON_NAME=test
+CERT_DAYS=365
+CERT_COUNTRY=US
+CERT_STATE=New York
+CERT_LOCALITY=Brooklin
+CERT_ORGANIZATION_NAME=Internet Widgits Pty Ltd
+CERT_COMMON_NAME=test
