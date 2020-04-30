@@ -20,9 +20,7 @@ services:
   php:
     build:
       context: ./php/build/${PHP_VERSION:-74-fpm}
-      args:
-        PHP_FPM_UID: ${PHP_FPM_UID:-1000}
-        PHP_FPM_GID: ${PHP_FPM_GID:-1000}
+    user: "${PHP_FPM_UID:-1000}:${PHP_FPM_GID:-1000}"
     volumes:
       - ./DocumentRoot:/var/www/html:z
       - ./php/config/php.ini:/usr/local/etc/php/conf.d/php.ini:z
@@ -48,7 +46,7 @@ services:
     depends_on:
       - mariadb
 
- sslcert-generator:
+  sslcert-generator:
     build:
       context: https://github.com/egdoc/docker-sslcert-generator.git
     environment:

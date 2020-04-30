@@ -20,8 +20,3 @@ RUN apt-get update && apt-get install -y \
       --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-configure intl \
     && docker-php-ext-install -j$(nproc) pdo pdo_mysql mysqli zip gd intl
-
-RUN sed -i \
-  -e "s/^user =.*/user = ${PHP_FPM_UID}/" \
-  -e "s/^group =.*/group = ${PHP_FPM_GID}/" \
-  /usr/local/etc/php-fpm.d/www.conf
