@@ -4,6 +4,7 @@ LABEL maintainer="egdoc.dev@gmail.com"
 ARG HTTPD_UID=www-data
 ARG HTTPD_GID=www-data
 
+RUN apt-get update && apt-get install -y mariadb-client
 COPY httpd.conf /usr/local/apache2/conf
 RUN sed -i \
   -e "s/User www-data/User ${HTTPD_UID}/" \
