@@ -1,0 +1,17 @@
+FROM php:7.0-fpm
+LABEL maintainer="egdoc.dev@gmail.com"
+
+RUN apt-get update && apt-get install -y \
+  libfreetype6-dev \
+  libjpeg62-turbo-dev \
+  libpng-dev \
+  libzip-dev \
+  libwebp-dev \
+  libmcrypt-dev \
+    && docker-php-ext-configure gd \
+      --with-freetype-dir=/usr/include/ \
+      --with-jpeg-dir=/usr/include/ \
+      --with-webp-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) pdo pdo_mysql mysqli zip gd mcrypt
+
+COPY php.ini /usr/local/etc/php/conf.d/php.ini

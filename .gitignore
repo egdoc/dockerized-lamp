@@ -1,0 +1,3 @@
+DocumentRoot/*
+!DocumentRoot/phpinfo.php
+.env
