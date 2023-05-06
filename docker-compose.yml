@@ -58,8 +58,7 @@ services:
       - mariadb
 
   sslcert-generator:
-    build:
-      context: https://github.com/egdoc/docker-sslcert-generator.git
+    image: egdoc/docker-sslcert-generator
     environment:
       CERT_DAYS: ${CERT_DAYS:-365}
       CERT_COUNTRY: ${CERT_COUNTRY:-US}
