@@ -33,7 +33,7 @@ services:
       - ./DocumentRoot:/var/www/html:z
 
   mariadb:
-    image: mariadb:10.5
+    image: docker.io/mariadb:10.5
     volumes:
       - mariadb:/var/lib/mysql
     environment:
@@ -45,7 +45,7 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-testdb}
 
   phpmyadmin:
-    image: phpmyadmin:fpm
+    image: docker.io/phpmyadmin:fpm
     links:
       - 'mariadb:db'
     environment:
@@ -58,7 +58,7 @@ services:
       - mariadb
 
   sslcert-generator:
-    image: egdoc/docker-sslcert-generator
+    image: docker.io/egdoc/docker-sslcert-generator
     environment:
       CERT_DAYS: ${CERT_DAYS:-365}
       CERT_COUNTRY: ${CERT_COUNTRY:-US}
