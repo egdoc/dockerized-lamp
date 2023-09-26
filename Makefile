@@ -7,6 +7,13 @@ compose:
 compose-down:
 	docker-compose down --rmi all --volumes --remove-orphans
 
+deploy-grav: clean
+	tmpdir=$$(mktemp -d) && \
+	curl -o $$tmpdir/grav-admin-latest.zip -L https://getgrav.org/download/core/grav-admin/latest && \
+	unzip $$tmpdir/grav-admin-latest.zip -d $$tmpdir && \
+	cp -aT $$tmpdir/grav-admin/ ${CURDIR}/DocumentRoot && \
+	rm -r $$tmpdir
+
 deploy-nextcloud: clean
 	curl -L https://download.nextcloud.com/server/releases/latest.tar.bz2 \
 	  | tar -C DocumentRoot -xvpj --strip=1
