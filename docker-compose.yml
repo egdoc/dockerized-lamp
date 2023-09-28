@@ -19,8 +19,10 @@ services:
 
   php:
     build:
-      context: ./php/build/context
-      dockerfile: ../Dockerfile-${PHP_VERSION:-74-fpm}
+      context: ./php/build
+      target: post
+      args:
+        PHP_VERSION: ${PHP_VERSION:-8.2-fpm}
     user: ${PHP_FPM_UID:-1000}:${PHP_FPM_GID:-1000}
     environment:
       PHP_FPM_MAX_EXECUTION_TIME: ${PHP_FPM_MAX_EXECUTION_TIME:-600}
