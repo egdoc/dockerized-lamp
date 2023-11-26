@@ -24,6 +24,7 @@ services:
       args:
         PHP_VERSION: ${PHP_VERSION:-8.2-fpm}
     user: ${PHP_FPM_UID:-1000}:${PHP_FPM_GID:-1000}
+    userns_mode: keep-id
     environment:
       PHP_FPM_MAX_EXECUTION_TIME: ${PHP_FPM_MAX_EXECUTION_TIME:-600}
       PHP_FPM_MEMORY_LIMIT: ${PHP_FPM_MEMORY_LIMIT:-512M}
