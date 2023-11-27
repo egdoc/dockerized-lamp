@@ -49,9 +49,9 @@ services:
     environment:
       TZ: ${TZ:-"Europe/Rome"}
       MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD:-no}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpwd}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
       MYSQL_USER: ${MYSQL_USER:-testuser}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-testpwd}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-testpassword}
       MYSQL_DATABASE: ${MYSQL_DATABASE:-testdb}
 
   phpmyadmin:
