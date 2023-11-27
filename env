@@ -1,13 +1,17 @@
+# Ftpd
+# ----------------------
+FTP_HOST_PORT=21
+FTP_USER=user
+FTP_PASS=pass
+
 # Httpd
-#-----------------------
+# ----------------------
 HTTPD_HOST_PORT=80
 HTTPD_HOST_SSL_PORT=443
 
 # PHP
 # ----------------------
 PHP_VERSION=7.4-fpm
-PHP_FPM_UID=1000
-PHP_FPM_GID=1000
 PHP_FPM_MAX_EXECUTION_TIME=600
 PHP_FPM_MEMORY_LIMIT=512M
 PHP_FPM_POST_MAX_SIZE=100M
