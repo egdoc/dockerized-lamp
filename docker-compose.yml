@@ -53,6 +53,8 @@ services:
       MYSQL_USER: ${MYSQL_USER:-testuser}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-testpassword}
       MYSQL_DATABASE: ${MYSQL_DATABASE:-testdb}
+    ports:
+      - ${MYSQL_HOST_PORT:-3306}:3306
 
   phpmyadmin:
     image: docker.io/phpmyadmin:fpm

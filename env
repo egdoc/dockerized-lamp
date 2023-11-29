@@ -27,6 +27,7 @@ MYSQL_ROOT_PASSWORD=rootpassword
 MYSQL_USER=testuser
 MYSQL_PASSWORD=testpassword
 MYSQL_DATABASE=testdb
+MYSQL_HOST_PORT=3306
 
 # Sslcert-generator
 # ----------------------
