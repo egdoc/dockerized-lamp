@@ -43,7 +43,7 @@ services:
       - document_root:/var/www/html
 
   db:
-    image: docker.io/mariadb:10.5
+    image: docker.io/mysql:8
     volumes:
       - db:/var/lib/mysql
     environment:
