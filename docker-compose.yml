@@ -42,10 +42,10 @@ services:
     volumes:
       - document_root:/var/www/html
 
-  mariadb:
+  db:
     image: docker.io/mariadb:10.5
     volumes:
-      - mariadb:/var/lib/mysql
+      - db:/var/lib/mysql
     environment:
       TZ: ${TZ:-"Europe/Rome"}
       MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD:-no}
@@ -58,8 +58,6 @@ services:
 
   phpmyadmin:
     image: docker.io/phpmyadmin:fpm
-    links:
-      - 'mariadb:db'
     environment:
       MAX_EXECUTION_TIME: ${PHP_FPM_MAX_EXECUTION_TIME:-600}
       MEMORY_LIMIT: ${PHP_FPM_MEMORY_LIMIT:-512M}
@@ -67,7 +65,7 @@ services:
     volumes:
       - phpmyadmin_data:/var/www/html:ro
     depends_on:
-      - mariadb
+      - db
 
   sslcert-generator:
     image: docker.io/egdoc/docker-sslcert-generator
@@ -82,7 +80,7 @@ services:
       - certs:/certs
 
 volumes:
-  mariadb:
+  db:
   phpmyadmin_data:
   certs:
   document_root:
