@@ -2,13 +2,13 @@
 version: '3.7'
 services:
   ftpd:
-    image: docker.io/garethflowers/ftp-server
+    image: docker.io/egdoc/proftpd
     environment:
       FTP_USER: ${FTP_USER:-user}
       FTP_PASS: ${FTP_PASS:-pass}
     ports:
-      - ${FTP_HOST_PORT:-21}:21
-      - "40000-40009:40000-40009"
+      - ${FTP_HOST_CONTROL_PORT:-21}:21
+      - ${FTP_HOST_PASSIVE_PORTS_RANGE:-40000-40009}:40000-40009
     volumes:
       - document_root:/home/${FTP_USER:-user}
 
