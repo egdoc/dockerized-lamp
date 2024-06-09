@@ -44,7 +44,7 @@ services:
       - document_root:/var/www/html
 
   db:
-    image: docker.io/mysql:8
+    image: docker.io/mysql:${MYSQL_VERSION:-8}
     volumes:
       - db:/var/lib/mysql
     environment:
