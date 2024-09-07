@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y libmcrypt-dev \
 FROM base AS php8.0-fpm
 FROM base AS php8.1-fpm 
 FROM base AS php8.2-fpm
+FROM base AS php8.3-fpm
 
 FROM "php${PHP_VERSION}" AS post
 COPY php.ini /usr/local/etc/php/conf.d/php.ini
