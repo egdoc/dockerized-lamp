@@ -2,7 +2,8 @@
 version: '3.7'
 services:
   ftpd:
-    image: docker.io/egdoc/proftpd
+    build:
+      context: ./proftpd
     environment:
       FTP_USER: ${FTP_USER:-user}
       FTP_PASS: ${FTP_PASS:-pass}
@@ -11,6 +12,7 @@ services:
       - ${FTP_HOST_PASSIVE_PORTS_RANGE:-40000-40009}:40000-40009
     volumes:
       - document_root:/home/${FTP_USER:-user}
+      - certs:/certs
 
   httpd:
     build:
