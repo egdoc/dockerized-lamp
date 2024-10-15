@@ -1,21 +1,6 @@
 ---
 version: '3.7'
 services:
-  ftpd:
-    build:
-      context: ./proftpd
-    environment:
-      FTP_USER: ${FTP_USER:-user}
-      FTP_PASS: ${FTP_PASS:-pass}
-    ports:
-      - ${FTP_HOST_CONTROL_PORT:-21}:21
-      - ${FTP_HOST_PASSIVE_PORTS_RANGE:-40000-40009}:40000-40009
-    volumes:
-      - document_root:/home/${FTP_USER:-user}
-      - certs:/certs
-    depends_on:
-      - sslcert-generator
-
   httpd:
     build:
       context: ./httpd
@@ -23,7 +8,7 @@ services:
       - ${HTTPD_HOST_PORT:-80}:80
       - ${HTTPD_HOST_SSL_PORT:-443}:443
     volumes:
-      - document_root:/var/www/html
+      - ./DocumentRoot:/var/www/html:z
       - phpmyadmin_data:/var/www/phpmyadmin:ro
       - certs:/certs
     depends_on:
@@ -45,7 +30,7 @@ services:
       PHP_FPM_ERROR_REPORTING: ${PHP_FPM_ERROR_REPORTING:-"E_ALL"}
       PHP_FPM_DISPLAY_ERRORS: ${PHP_FPM_DISPLAY_ERRORS:-"On"}
     volumes:
-      - document_root:/var/www/html
+      - ./DocumentRoot:/var/www/html:z
 
   db:
     image: docker.io/mariadb:${MYSQL_VERSION:-10.5}
@@ -88,4 +73,3 @@ volumes:
   db:
   phpmyadmin_data:
   certs:
-  document_root:
