@@ -35,7 +35,7 @@ services:
   db:
     image: docker.io/mariadb:${MYSQL_VERSION:-10.5}
     volumes:
-      - db:/var/lib/mysql
+      - ./mysql:/var/lib/mysql:z
     environment:
       TZ: ${TZ:-"Europe/Rome"}
       MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD:-no}
@@ -70,6 +70,5 @@ services:
       - certs:/certs
 
 volumes:
-  db:
   phpmyadmin_data:
   certs:
